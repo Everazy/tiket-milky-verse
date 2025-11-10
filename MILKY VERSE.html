@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tiket Milky Verse</title>
+<style>
+  body {
+    margin: 0;
+    font-family: "Poppins", sans-serif;
+    overflow: hidden;
+  }
+
+  /* 🔹 LATAR BELAKANG UTAMA (tema taman bermain) */
+  .background {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(255,245,204,0.9), rgba(255,255,255,0.9));o
+    background-size: cover;
+    background-position: center;
+    filter: blur(8px) brightness(0.8);
+    z-index: 1;
+    transition: filter 3s ease;
+  }
+
+  /* COVER */
+  .cover {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 5;
+    transition: opacity 1s ease;
+  }
+
+  .cover.blur {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .cover h1 {
+    font-size: 40px;
+    color: #FF8C00;
+    text-shadow:
+    -1.5px -1.5px 0 black,
+     1.5px -1.5px 0 black,
+    -1.5px  1.5px 0 black,
+     1.5px  1.5px 0 black;
+    margin-bottom: 30px;
+    animation: bounce 2s infinite;
+    text-align: center;
+  }
+
+  @keyframes bounce {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+  }
+
+  .cover button {
+    padding: 15px 30px;
+    font-size: 18px;
+    font-weight: bold;
+    background: #ff6a00;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
+  }
+
+  .cover button:hover {
+    transform: scale(1.1);
+    background: #ff8a33;
+  }
+
+  /* BALON ANIMASI */
+  .balon {
+    position: absolute;
+    font-size: 40px;
+    animation: naik 17s linear infinite;
+    z-index: 8;
+  }
+
+  .balon:nth-child(1) { left: 10%; animation-delay: 0s; }
+  .balon:nth-child(2) { left: 50%; animation-delay: 2s; }
+  .balon:nth-child(3) { left: 80%; animation-delay: 4s; }
+
+  @keyframes naik {
+    0% { bottom: -50px; transform: translateX(0); opacity: 0.7; }
+    50% { transform: translateX(20px); opacity: 1; }
+    100% { bottom: 110%; transform: translateX(-20px); opacity: 0; }
+  }
+
+  /* TIKET */
+  .tiket {
+    background: linear-gradient(135deg, rgba(255,245,204,0.9), rgba(255,255,255,0.9));
+    width: 400px;
+    border-radius: 16px;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.4);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.7) rotateX(90deg);
+    opacity: 0;
+    border: 3px dashed #ff7b00;
+    overflow: hidden;
+    transition: all 1s ease;
+    z-index: 4;
+  }
+
+  .tiket.show {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1) rotateX(0deg);
+  }
+
+  .tiket::before, .tiket::after {
+    content: "";
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background: #ffe259;
+    border-radius: 50%;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  .tiket::before { left: -15px; }
+  .tiket::after { right: -15px; }
+
+  .header {
+    background: linear-gradient(90deg, #ff6a00, #ffca28);
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+    font-weight: bold;
+    font-size: 20px;
+    letter-spacing: 1px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+  }
+
+  .content {
+    padding: 20px 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: relative;
+  }
+
+  .row { display: flex; justify-content: space-between; border-bottom: 1px dashed #ffb300; padding-bottom: 6px; }
+  .label { color: #555; font-size: 14px; }
+  .value { font-weight: bold; font-size: 15px; color: #d35400; }
+
+  .footer {
+    background: #fff3cd;
+    padding: 10px 20px;
+    text-align: center;
+    font-size: 13px;
+    color: #7a5b00;
+    border-top: 2px dashed #ffb300;
+    font-weight: bold;
+  }
+
+  .icon { position: absolute; top: 10px; left: 15px; font-size: 24px; }
+  .icon2 { position: absolute; top: 10px; right: 15px; font-size: 24px; }
+
+  .qr {
+    display: block;
+    margin: 10px auto 0;
+    width: 120px;
+    height: 120px;
+    background-image: url('https://genqrcode.com/embedded?style=0&text=https%3A%2F%2Fdrive.google.com%2Fdrive%2Ffolders%2F13-x82XtVK-7vVlxo49iHiRWCtV5FZkew');
+    background-size: cover;
+    border-radius: 10px;
+  }
+
+  .qr-text { text-align: center; margin-top: 8px; font-size: 16px; font-weight: bold; color: #d35400; }
+
+</style>
+</head>
+<body>
+
+  <!-- 🔹 LATAR BELAKANG -->
+  <div class="background" id="background"></div>
+
+  <!-- BALON -->
+  <div class="balon">🎈</div>
+  <div class="balon">🎈</div>
+  <div class="balon">🎠</div>
+  <div class="balon">🎢</div>
+
+  <!-- COVER -->
+  <div class="cover" id="cover">
+    <h1>Hadiah buat kamu!</h1>
+    <button onclick="bukaTiket()">Buka Tiket</button>
+  </div>
+
+  <!-- TIKET -->
+  <div class="tiket" id="tiket">
+    <div class="icon">🎡</div>
+    <div class="icon2">🎢</div>
+
+    <div class="header">Tiket Bermain Milky Verse</div>
+
+    <div class="content">
+      <div class="row"><span class="label">Nama Pengunjung:</span><span class="value">Kenndy & Ilham</span></div>
+      <div class="row"><span class="label">Tempat:</span><span class="value">Milky Verse</span></div>
+      <div class="row"><span class="label">Tanggal Kunjungan:</span><span class="value">11 November 2025</span></div>
+      <div class="row"><span class="label">Jam Masuk:</span><span class="value">19:00 WITA</span></div>
+      <div class="row"><span class="label">Harga Tiket:</span><span class="value">Rp 35.000/orang</span></div>
+
+      <div class="qr"></div>
+      <div class="qr-text">Memories In Milky Verse</div>
+    </div>
+
+    <div class="footer">Selamat bermain dan bersenang-senang sayanggkuu Kenndy Carolina 🎠</div>
+  </div>
+
+  <script>
+    function bukaTiket(){
+      // Hilangkan cover, tampilkan tiket
+      document.getElementById('cover').classList.add('blur');
+      document.getElementById('background').style.filter = 'blur(0px) brightness(1)';
+      document.getElementById('tiket').classList.add('show');
+    }
+  </script>
+</body>
+</html>
