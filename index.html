@@ -80,35 +80,6 @@
     background: #ff8a33;
   }
 
-  /* BALON ANIMASI */
-  .balon {
-    position: absolute;
-    font-size: 40px;
-    animation: naik 17s linear infinite;
-    z-index: 8;
-  }
-
-  .balon:nth-child(1) { left: 5%; animation-delay: 8s; }
-  .balon:nth-child(2) { left: 15%; animation-delay: 2s; }
-  .balon:nth-child(3) { left: 25%; animation-delay: 4s; }
-  .balon:nth-child(4) { left: 35%; animation-delay: 6s; }
-  .balon:nth-child(5) { left: 45%; animation-delay: 4s; }
-  .balon:nth-child(6) { left: 55%; animation-delay: 2s; }
-  .balon:nth-child(7) { left: 65%; animation-delay: 8s; }
-  .balon:nth-child(8) { left: 75%; animation-delay: 6s; }
-  .balon:nth-child(9) { left: 85%; animation-delay: 2s; }
-  .balon:nth-child(10) { left: 65%; animation-delay: 8s; }
-  .balon:nth-child(11) { left: 75%; animation-delay: 6s; }
-  .balon:nth-child(12) { left: 85%; animation-delay: 4s; }
-  .balon:nth-child(13) { left: 65%; animation-delay: 8s; }
-  .balon:nth-child(14) { left: 75%; animation-delay: 6s; }
-  .balon:nth-child(15) { left: 85%; animation-delay: 2s; }
-
-  @keyframes naik {
-    0% { bottom: -50px; transform: translateX(0); opacity: 0.7; }
-    50% { transform: translateX(20px); opacity: 1; }
-    100% { bottom: 110%; transform: translateX(-20px); opacity: 0; }
-  }
 
   /* TIKET */
   .tiket {
@@ -192,6 +163,36 @@
   }
 
   .qr-text { text-align: center; margin-top: 8px; font-size: 16px; font-weight: bold; color: #d35400; }
+
+    /* BALON ANIMASI */
+  .balon {
+    position: absolute;
+    font-size: 40px;
+    animation: naik 17s linear infinite;
+    z-index: 8;
+  }
+
+  .balon:nth-child(1) { left: 5%; animation-delay: 0s; }
+  .balon:nth-child(2) { left: 15%; animation-delay: 2s; }
+  .balon:nth-child(3) { left: 25%; animation-delay: 5s; }
+  .balon:nth-child(4) { left: 35%; animation-delay: 12s; }
+  .balon:nth-child(5) { left: 45%; animation-delay: 2s; }
+  .balon:nth-child(6) { left: 55%; animation-delay: 9s; }
+  .balon:nth-child(7) { left: 65%; animation-delay: 12s; }
+  .balon:nth-child(8) { left: 75%; animation-delay: 2s; }
+  .balon:nth-child(9) { left: 85%; animation-delay: 9s; }
+  .balon:nth-child(10) { left: 65%; animation-delay: 12s; }
+  .balon:nth-child(11) { left: 75%; animation-delay: 2s; }
+  .balon:nth-child(12) { left: 85%; animation-delay: 9s; }
+  .balon:nth-child(13) { left: 65%; animation-delay: 5s; }
+  .balon:nth-child(14) { left: 75%; animation-delay: 12s; }
+  .balon:nth-child(15) { left: 85%; animation-delay: 2s; }
+
+  @keyframes naik {
+    0% { bottom: -50px; transform: translateX(0); opacity: 0.7; }
+    50% { transform: translateX(20px); opacity: 1; }
+    100% { bottom: 110%; transform: translateX(-20px); opacity: 0; }
+  }
 
 </style>
 </head>
