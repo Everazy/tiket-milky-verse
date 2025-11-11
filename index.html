@@ -35,7 +35,7 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    z-index: 5;
+    z-index: 10;
     transition: opacity 1s ease;
   }
 
@@ -48,10 +48,10 @@
     font-size: 40px;
     color: #FF8C00;
     text-shadow:
-    -1.5px -1.5px 0 black,
-     1.5px -1.5px 0 black,
-    -1.5px  1.5px 0 black,
-     1.5px  1.5px 0 black;
+      -1.5px -1.5px 0 black,
+       1.5px -1.5px 0 black,
+      -1.5px  1.5px 0 black,
+       1.5px  1.5px 0 black;
     margin-bottom: 30px;
     animation: bounce 2s infinite;
     text-align: center;
@@ -80,6 +80,19 @@
     background: #ff8a33;
   }
 
+  /* BALON ANIMASI */
+  .balon {
+    position: absolute;
+    font-size: 40px;
+    animation: naik 17s linear infinite;
+    z-index: 2;
+  }
+
+  @keyframes naik {
+    0% { bottom: -50px; transform: translateX(0); opacity: 0.7; }
+    50% { transform: translateX(20px); opacity: 1; }
+    100% { bottom: 110%; transform: translateX(-20px); opacity: 0; }
+  }
 
   /* TIKET */
   .tiket {
@@ -95,7 +108,7 @@
     border: 3px dashed #ff7b00;
     overflow: hidden;
     transition: all 1s ease;
-    z-index: 4;
+    z-index: 5;
   }
 
   .tiket.show {
@@ -164,59 +177,35 @@
 
   .qr-text { text-align: center; margin-top: 8px; font-size: 16px; font-weight: bold; color: #d35400; }
 
-    /* BALON ANIMASI */
-  .balon {
-    position: absolute;
-    font-size: 40px;
-    animation: naik 17s linear infinite;
-    z-index: 8;
-  }
-
-  .balon:nth-child(1) { left: 5%; animation-delay: 0s; }
-  .balon:nth-child(2) { left: 15%; animation-delay: 2s; }
-  .balon:nth-child(3) { left: 25%; animation-delay: 7s; }
-  .balon:nth-child(4) { left: 35%; animation-delay: 12s; }
-  .balon:nth-child(5) { left: 45%; animation-delay: 2s; }
-  .balon:nth-child(6) { left: 55%; animation-delay: 12s; }
-  .balon:nth-child(7) { left: 65%; animation-delay: 7s; }
-  .balon:nth-child(8) { left: 75%; animation-delay: 2s; }
-  .balon:nth-child(9) { left: 85%; animation-delay: 7s; }
-  .balon:nth-child(10) { left: 95%; animation-delay: 12s; }
-  .balon:nth-child(11) { left: 20%; animation-delay: 2s; }
-  .balon:nth-child(12) { left: 40%; animation-delay: 0s; }
-  .balon:nth-child(13) { left: 60%; animation-delay: 12s; }
-  .balon:nth-child(14) { left: 70%; animation-delay: 7s; }
-  .balon:nth-child(15) { left: 90%; animation-delay: 2s; }
-
-  @keyframes naik {
-    0% { bottom: -50px; transform: translateX(0); opacity: 0.7; }
-    50% { transform: translateX(20px); opacity: 1; }
-    100% { bottom: 110%; transform: translateX(-20px); opacity: 0; }
-  }
-
 </style>
 </head>
 <body>
 
+  <!-- 🔊 MUSIK LATAR CERIA -->
+  <audio id="bgMusic" loop>
+    <source src="https://cdn.pixabay.com/download/audio/2023/03/17/audio_876727c1a8.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- 🔊 EFEK SUARA TOMBOL -->
+  <audio id="openSound">
+    <source src="https://cdn.pixabay.com/download/audio/2021/08/04/audio_7339d91ad9.mp3" type="audio/mpeg">
+  </audio>
+
   <!-- 🔹 LATAR BELAKANG -->
   <div class="background" id="background"></div>
 
-  <!-- BALON -->
-  <div class="balon">🎈</div>
-  <div class="balon">🎠</div>
-  <div class="balon">🎢</div>
-  <div class="balon">🎈</div>
-  <div class="balon">🎠</div>
-  <div class="balon">🎢</div>
-  <div class="balon">🎈</div>
-  <div class="balon">🎠</div>
-  <div class="balon">🎢</div>
-  <div class="balon">🎈</div>
-  <div class="balon">🎠</div>
-  <div class="balon">🎢</div>
-  <div class="balon">🎈</div>
-  <div class="balon">🎠</div>
-  <div class="balon">🎢</div>
+  <!-- BALON (otomatis 20 buah acak) -->
+  <script>
+    const emojis = ["🎈","🎡","🎠","🎢"];
+    for(let i=0; i<20; i++){
+      const b = document.createElement("div");
+      b.classList.add("balon");
+      b.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+      b.style.left = Math.random()*100 + "%";
+      b.style.animationDelay = Math.random()*10 + "s";
+      document.body.appendChild(b);
+    }
+  </script>
 
   <!-- COVER -->
   <div class="cover" id="cover">
@@ -247,7 +236,11 @@
 
   <script>
     function bukaTiket(){
-      // Hilangkan cover, tampilkan tiket
+      // Mainkan musik & efek suara
+      document.getElementById("bgMusic").play();
+      document.getElementById("openSound").play();
+
+      // Hilangkan cover dan tampilkan tiket
       document.getElementById('cover').classList.add('blur');
       document.getElementById('background').style.filter = 'blur(0px) brightness(1)';
       document.getElementById('tiket').classList.add('show');
