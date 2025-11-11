@@ -182,13 +182,13 @@
 <body>
 
   <!-- 🔊 MUSIK LATAR CERIA -->
-  <audio id="bgMusic" loop>
-    <source src="yung kai - blue (official music video).mp3" type="audio/mpeg">
+  <audio id="bgMusic" autoplay loop muted>
+    <source src="https://cdn.pixabay.com/download/audio/2023/03/17/audio_876727c1a8.mp3" type="audio/mpeg">
   </audio>
 
   <!-- 🔊 EFEK SUARA TOMBOL -->
   <audio id="openSound">
-    <source src="ding-sound-effect_1_0gpHFnw.mp3" type="audio/mpeg">
+    <source src="https://cdn.pixabay.com/download/audio/2021/09/06/audio_8e01d2f7bb.mp3" type="audio/mpeg">
   </audio>
 
   <!-- 🔹 LATAR BELAKANG -->
@@ -235,9 +235,23 @@
   </div>
 
   <script>
+    // ✅ Otomatis play musik dari awal (dengan trik anti blokir)
+    window.addEventListener("load", () => {
+      const bg = document.getElementById("bgMusic");
+      bg.muted = false;
+      const playPromise = bg.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          console.log("Autoplay diblokir — musik akan mulai saat tombol ditekan.");
+        });
+      }
+    });
+
+    // 🔘 Fungsi buka tiket
     function bukaTiket(){
       // Mainkan musik & efek suara
-      document.getElementById("bgMusic").play();
+      const music = document.getElementById("bgMusic");
+      music.play();
       document.getElementById("openSound").play();
 
       // Hilangkan cover dan tampilkan tiket
